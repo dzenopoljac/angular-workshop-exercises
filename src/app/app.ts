@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, DoCheck, OnInit } from '@angular/core';
 import { Task, TaskDetails, TaskService } from './task.service';
-import { Observable } from 'rxjs';
+import { catchError, EMPTY, Observable, Subject, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -11,21 +11,29 @@ import { Observable } from 'rxjs';
 
 })
 export class App {
-  tasks$: Observable<Task[]>; 
-  selectedTaskDetails: TaskDetails | null = null;
+    tasks$: Observable<Task[]>;
   someUnrelatedInput = '';
+
+  private selectedTaskId = new Subject<number>();
+
+  selectedTaskDetails$: Observable<TaskDetails>;
 
   constructor(private taskService: TaskService) {
     this.tasks$ = this.taskService.getTasks();
+
+    this.selectedTaskDetails$ = this.selectedTaskId.pipe(
+      switchMap(id => 
+        this.taskService.getTaskDetails(id).pipe(
+          catchError(err => {
+            console.error(err);
+            return EMPTY; 
+          })
+        )
+      )
+    );
   }
 
   onTaskSelected(id: number) {
-    this.taskService.getTaskDetails(id).subscribe(details => {
-      this.selectedTaskDetails = details;
-    });
-  }
-
-  getCompletedTasksCount() {
-    return 0; 
+    this.selectedTaskId.next(id);
   }
 }

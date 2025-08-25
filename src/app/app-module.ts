@@ -5,10 +5,12 @@ import { App } from './app';
 import { FormsModule } from '@angular/forms';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { CompletedCountPipe } from './completed-count-pipe';
 
 @NgModule({
   declarations: [
-    App
+    App,
+    CompletedCountPipe
   ],
   imports: [
     BrowserModule,

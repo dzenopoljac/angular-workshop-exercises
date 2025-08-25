@@ -1,0 +1,31 @@
+<mat-toolbar color="primary">
+  <span>Workshop App - Exercises</span>
+</mat-toolbar>
+
+<div class="container">
+  <h2>Task List</h2>
+  <p>Completed tasks: {{ getCompletedTasksCount() }} / {{ tasks.length }}</p>
+  
+  <mat-list>
+    <mat-list-item *ngFor="let task of tasks" (click)="onTaskSelected(task.id)">
+      {{ task.title }}
+    </mat-list-item>
+  </mat-list>
+
+  <hr>
+
+  <h2>Task Details</h2>
+  <div *ngIf="selectedTaskDetails">
+    <h3>{{ selectedTaskDetails.title }}</h3>
+    <p>{{ selectedTaskDetails.description }}</p>
+    <p>Assigned to: {{ selectedTaskDetails.assignedTo }}</p>
+    <p>Status: {{ selectedTaskDetails.completed ? 'Completed' : 'Pending' }}</p>
+  </div>
+  <div *ngIf="!selectedTaskDetails">
+    <p>Please select a task to see details.</p>
+  </div>
+  
+  <hr>
+  <p>This input triggers change detection everywhere:</p>
+  <input [(ngModel)]="someUnrelatedInput">
+</div>

@@ -6,11 +6,15 @@ import { FormsModule } from '@angular/forms';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CompletedCountPipe } from './completed-count-pipe';
+import { TaskList } from './task-list/task-list';
+import { TaskDetailsComponent } from './task-details/task-details';
 
 @NgModule({
   declarations: [
     App,
-    CompletedCountPipe
+    CompletedCountPipe,
+    TaskList,
+    TaskDetailsComponent
   ],
   imports: [
     BrowserModule,

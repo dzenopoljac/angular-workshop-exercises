@@ -1,0 +1,13 @@
+<h2>Task Details</h2>
+
+<!-- KORAK 2: Koristi @Input() properti 'details' -->
+<div *ngIf="details; else noDetails">
+  <h3>{{ details.title }}</h3>
+  <p>{{ details.description }}</p>
+  <p>Assigned to: {{ details.assignedTo }}</p>
+  <p>Status: {{ details.completed ? 'Completed' : 'Pending' }}</p>
+</div>
+
+<ng-template #noDetails>
+  <p>Please select a task to see details.</p>
+</ng-template>

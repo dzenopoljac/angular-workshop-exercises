@@ -1,12 +1,16 @@
-<h2>Task Details</h2>
-<!-- Koristi novi stream sa async pipe-om -->
-<div *ngIf="selectedTaskDetails$ | async as details; else noDetails">
-  <h3>{{ details.title }}</h3>
-  <p>{{ details.description }}</p>
-  <p>Assigned to: {{ details.assignedTo }}</p>
-  <p>Status: {{ details.completed ? 'Completed' : 'Pending' }}</p>
-</div>
+<!-- src/app/app.component.html (nova, čista verzija) -->
+<mat-toolbar color="primary">
+  <span>Workshop App - Solution</span>
+</mat-toolbar>
 
-<ng-template #noDetails>
-  <p>Please select a task to see details.</p>
-</ng-template>
+<div class="container">
+  <app-task-list 
+    [tasks]="tasks$ | async" 
+    (taskSelected)="onTaskSelected($event)">
+  </app-task-list>
+
+  <hr>
+
+  <app-task-details [details]="selectedTaskDetails$ | async">
+  </app-task-details>
+</div>
